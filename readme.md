@@ -10,3 +10,10 @@
 图片引自图虫:
 bg: http://kouke.tuchong.com/2108001/
 fg: http://color-mood.tuchong.com/2129431/
+
+------
+
+这当然是很久之前的代码了, 我从主页分离出来存放
+想法断了, 我也不知道那么做是否合适, 所以现在代码不再更新上来
+如果什么时候有点子了, 再添加, 网页在 gh-pages 上预览
+http://jiyinyiyong.github.com/chuangling/c.html
