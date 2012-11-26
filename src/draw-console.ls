@@ -7,14 +7,17 @@ define !(require, exports) ->
   window.ls = ls = require \./livescript-1.1.0.js .LiveScript
   log ls
 
+  window.puts = (...args) ->
+    $ \#output .append "<pre>#{JSON.stringify.apply JSON, args}</pre>"
+  window.put-clear = -> $ \#output .text ""
+
   exports.draw-console = ->
     $ \#console .hide!
 
-    json =
-      "textarea/text": "Demo in Terminal"
-    input = $ tmpl json
+    input = $ tmpl "textarea/text": "terminal.."
+    output = $ tmpl "/output": "output here.."
 
-    $ \#console .append input
+    $ \#console .append input .append output
 
     $("body").keypress (e) ->
       # log e.key-code

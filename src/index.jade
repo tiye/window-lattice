@@ -1,6 +1,6 @@
 
 doctype 5
-html(manifest="../cache.manifest")
+html(manifest="../cache.manifest.disable")
   head
     meta(charset="utf-8")
     link(rel="stylesheet",href="page.css")
@@ -14,7 +14,7 @@ html(manifest="../cache.manifest")
         preload: ["jquery", "main"]
         })
       seajs.use("main")
-    script(src="http://192.168.1.101:7777/doodle.js")
+    //- script(src="http://192.168.1.101:7777/doodle.js")
   body
     #overview
       #view

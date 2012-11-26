@@ -1,3 +1,4 @@
+var slice$ = [].slice;
 define(function(require, exports){
   var tmpl, $, log, ls;
   tmpl = require('./tmpl').tmpl;
@@ -5,14 +6,24 @@ define(function(require, exports){
   log = require('./tool').log;
   window.ls = ls = require('./livescript-1.1.0.js').LiveScript;
   log(ls);
+  window.puts = function(){
+    var args;
+    args = slice$.call(arguments);
+    return $('#output').append("<pre>" + JSON.stringify.apply(JSON, args) + "</pre>");
+  };
+  window.putClear = function(){
+    return $('#output').text("");
+  };
   exports.drawConsole = function(){
-    var json, input, showError;
+    var input, output, showError;
     $('#console').hide();
-    json = {
-      "textarea/text": "Demo in Terminal"
-    };
-    input = $(tmpl(json));
-    $('#console').append(input);
+    input = $(tmpl({
+      "textarea/text": "terminal.."
+    }));
+    output = $(tmpl({
+      "/output": "output here.."
+    }));
+    $('#console').append(input).append(output);
     $("body").keypress(function(e){
       var textElem, textLength;
       if (e.ctrlKey && !e.altKey) {
