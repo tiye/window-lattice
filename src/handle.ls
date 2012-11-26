@@ -4,7 +4,7 @@ define !(require, exports) ->
   {draw-window, resize-window} = require "./draw-window"
   {draw-console} = require "./draw-console"
 
-  draw-window!
+  draw-window 3
   draw-console!
   window.onresize = resize-window
 

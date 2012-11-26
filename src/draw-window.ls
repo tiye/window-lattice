@@ -1,5 +1,6 @@
 
 window.world = {}
+window.current = "0&0"
 
 define !(require, exports) ->
   $ = require "jquery"
@@ -8,45 +9,95 @@ define !(require, exports) ->
 
   w = window.inner-width
   h = window.inner-height
-  overview-ratio = 0
+  overview-ratio = 1
+  view-ratio = 1
 
   create-dekstop = (place, position) ->
     unless window.world[place]
-      desktop = ($ tmpl ".desk": "desk")
+      {x,y} = position
+      desktop = ($ tmpl ".desk": "#{-x}&#{-y}")
       $ \#view .append desktop
       window.world[place] = {p: position, desktop}
 
   desktop-n = (n) ->
     [-n to n].for-each (y) ->
       [-n to n].for-each (x) ->
-        place = "#y&#x"
+        place = "#x&#y"
         position = {x, y}
         create-dekstop place, position
 
-  exports.draw-window = ->
+  get-left = (elem) ->
+    left = (elem.css \left) - "px"
+    (Number left) or 0
 
-    for n in [0 to 3]
-      desktop-n n
+  get-top = (elem) ->
+    top = (elem.css \top) - "px"
+    (Number top) or 0
+
+  window.move-to = move-to = (name) ->
+    log \name name
+    if window.world[name]?
+      {x,y} = window.world[name].p
+      $ \#view .css \left (x * w * view-ratio * 1.02)
+      $ \#view .css \top (y * h * view-ratio * 1.02)
+      window.current = name
+
+  window.move-left = move-left = ->  
+    {x, y} = window.world[window.current].p
+    move-to "#{x+1}&#y"
+
+  window.move-right = move-right = ->
+    {x, y} = window.world[window.current].p
+    move-to "#{x-1}&#y"
+
+  window.move-up = move-up = ->
+    {x, y} = window.world[window.current].p
+    move-to "#x&#{y-1}"
+
+  window.move-down = move-down = ->
+    {x, y} = window.world[window.current].p
+    move-to "#x&#{y+1}"
+
+  window.toggle-view = toggle-view = ->
+    unless window.at-view
+      $ \#view .css \-webkit-transform "scale(0.92)"
+      view-ratio := 0.92
+      move-to window.current
+    else
+      $ \#view .css \-webkit-transform "scale(1)"
+      view-ratio := 1
+      move-to window.current
+    window.at-view := not window.at-view
+
+  window.toggle-overview = toggle-overview = ->
+    unless window.at-overview
+      $ \#overview .css \-webkit-transform "scale(#overview-ratio)"
+    else $ \#overview .css \-webkit-transform "scale(1)"
+    window.at-overview := not window.at-overview
+
+  exports.draw-window = (size) ->
+
+    [0 to size].for-each desktop-n
 
     exports.resize-window!
 
-    $("body").keypress (e) ->
-      log e.key-code
+    $("body").keydown (e) ->
+      # log e.key-code
       if e.ctrl-key and (not e.alt-key)
+        unless window.at-console
+          if (e.key-code is 81) then toggle-view!
+          else if (e.key-code is 77) then toggle-overview!
+          else if (e.key-code is 37) then move-left!
+          else if (e.key-code is 39) then move-right!
+          else if (e.key-code is 40) then move-up!
+          else if (e.key-code is 38) then move-down!
 
-        if window.at-console?
+  window.restart = (size) ->
 
-          if (e.key-code is 17)
-            unless window.at-view
-              $ \#view .css \-webkit-transform "scale(0.92)"
-            else $ \#view .css \-webkit-transform "scale(1)"
-            window.at-view := not window.at-view
-
-          else if (e.key-code is 13)
-            unless window.at-overview
-              $ \#overview .css \-webkit-transform "scale(#overview-ratio)"
-            else $ \#overview .css \-webkit-transform "scale(1)"
-            window.at-overview := not window.at-overview
+    $ \#view .html ""
+    window.world := {}
+    [0 to size].for-each desktop-n
+    exports.resize-window!
 
   exports.resize-window = ->
 
@@ -57,6 +108,8 @@ define !(require, exports) ->
     desks.css width: "#{w}px"
     desks.css height: "#{h}px"
 
+    left = (get-left ($ \#view)) + w/2*1.02
+    top = (get-top ($ \#view)) + h/2*1.02
     $ \#view .css \-webkit-transform-origin "#{w/2}px #{h/2}px"
     $ \#overview .css \-webkit-transform-origin "#{w/2}px #{h/2}px"
 
