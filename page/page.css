@@ -1,0 +1,47 @@
+#fullscr-toggler {
+  display: none !important;
+  margin-top: -28px !important;
+}
+@font-face {
+  font-family: "montserrat";
+  src: url("../fonts/montserrat.woff") format("woff");
+}
+* {
+  box-sizing: border-box;
+  font-family: "montserrat";
+}
+body {
+  margin: 0px;
+  overflow: hidden;
+}
+.desk {
+  background: rgba(8,8,43,0.8);
+  position: absolute;
+}
+#view,
+#overview {
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+#console {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: #5c0a25;
+}
+#text {
+  background: rgba(0,0,0,0);
+  position: absolute;
+  top: 100px;
+  left: 200px;
+  width: 600px;
+  height: 400px;
+  border: none;
+  outline: none;
+  resize: none;
+  color: #ebebe0;
+  font-family: monospace;
+  font-size: 20px;
+}
