@@ -4,7 +4,7 @@ html(manifest="../cache.manifest.error")
   head
     meta(charset="utf-8")
     link(rel="stylesheet",href="page.css")
-    //- script(src="../sea-modules/seajs/1.3.0/sea.js")
+    script(src="../sea-modules/seajs/1.3.0/sea.js")
     script
       seajs.config({
         alias: {
@@ -14,7 +14,7 @@ html(manifest="../cache.manifest.error")
         preload: ["jquery", "main"]
         })
       seajs.use("main")
-    script(src="http://192.168.1.101:7777/doodle.js")
+    //- script(src="http://192.168.1.101:7777/doodle.js")
   body
     #overview
       #view
