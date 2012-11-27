@@ -70,5 +70,5 @@ MIT
 
 My blueprints posted last year:  
 
-![p1](http://ww2.sinaimg.cn/large/62752320gw1dmov9gsvg8j.jpg) 
-![p2](http://ww3.sinaimg.cn/large/62752320gw1dmhskrclakj.jpg)  
+![p1](http://ww3.sinaimg.cn/large/62752320gw1dmhskrclakj.jpg)  
+![p2](http://ww2.sinaimg.cn/large/62752320gw1dmov9gsvg8j.jpg) 
