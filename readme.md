@@ -1,5 +1,5 @@
 
-## 窗棂
+## 窗棂: a desktop concept design in Chrome
 
 visit the demo with Chrome: http://jiyinyiyong.github.com/chuangling/page  
 run `cake dev` to develop
@@ -24,7 +24,7 @@ Linux 环境的桌面如此, 一年前甚至我最初尝试 Linux 的动力就�
 我希望每天能按照自己的操作习惯改进桌面, 然而过去了两年, 我只能写 HTML 而已  
 GNOME3 的高明之处在于桌面的可编程性大大提升了, 你能想到未来
 
-我梦想中的桌面是大量的网格, 深度的嵌套, 兼容其他结构
+我梦想中的桌面是大量的网格, 深度的嵌套, 兼容其他结构  
 一年前的图纸,在底部的图片里. 动画则如视频中展示的, 嵌套和窗口我没能做出来  
 我期待有一天桌面能很漂亮地排版, 很自由地切换, 并且以网页开发的难度彻底编程  
 目标是有一天能用框架把自己需要的功能全用代码实现出来
@@ -69,5 +69,6 @@ MIT
 ### the Past and the Future
 
 My blueprints posted last year:  
-![p1](http://photo.weibo.com/1651843872/wbphotos/large/photo_id/3375076428946704) 
-![p2](http://photo.weibo.com/1651843872/wbphotos/large/photo_id/3372858728566563)  
+
+![p1](http://ww2.sinaimg.cn/large/62752320gw1dmov9gsvg8j.jpg) 
+![p2](http://ww3.sinaimg.cn/large/62752320gw1dmhskrclakj.jpg)  
