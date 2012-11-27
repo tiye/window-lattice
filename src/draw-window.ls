@@ -1,6 +1,6 @@
 
 window.world = {}
-window.current = "0&0"
+window.current = "0_0"
 
 define !(require, exports) ->
   $ = require "jquery"
@@ -15,15 +15,18 @@ define !(require, exports) ->
   create-dekstop = (place, position) ->
     unless window.world[place]
       {x,y} = position
-      desktop = ($ tmpl ".desk": "#{-x}&#{-y}")
+      name = "#{x}_#{y}"
+      desktop = ($ tmpl ".desk/#{name}": {".name": name})
       $ \#view .append desktop
       window.world[place] = {p: position, desktop}
+      $ "\##name" .click -> move-to "#{-x}_#{-y}"
 
   desktop-n = (n) ->
     [-n to n].for-each (y) ->
       [-n to n].for-each (x) ->
-        place = "#x&#y"
+        place = "#{x}_#{y}"
         position = {x, y}
+        # log place
         create-dekstop place, position
 
   get-left = (elem) ->
@@ -44,19 +47,19 @@ define !(require, exports) ->
 
   window.move-left = move-left = ->  
     {x, y} = window.world[window.current].p
-    move-to "#{x+1}&#y"
+    move-to "#{x+1}_#{y}"
 
   window.move-right = move-right = ->
     {x, y} = window.world[window.current].p
-    move-to "#{x-1}&#y"
+    move-to "#{x-1}_#{y}"
 
   window.move-up = move-up = ->
     {x, y} = window.world[window.current].p
-    move-to "#x&#{y-1}"
+    move-to "#{x}_#{y-1}"
 
   window.move-down = move-down = ->
     {x, y} = window.world[window.current].p
-    move-to "#x&#{y+1}"
+    move-to "#{x}_#{y+1}"
 
   window.toggle-view = toggle-view = ->
     unless window.at-view
@@ -92,7 +95,7 @@ define !(require, exports) ->
           else if (e.key-code is 40) then move-up!
           else if (e.key-code is 38) then move-down!
 
-  window.restart = (size) ->
+  window.resize-desktop = (size) ->
 
     $ \#view .html ""
     window.world := {}

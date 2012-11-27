@@ -2,6 +2,7 @@
 define !(require, exports) ->
 
   {tmpl} = require \./tmpl
+  window.tmpl = tmpl
   window.$ = $ = require \jquery
   {log} = require \./tool
   window.ls = ls = require \./livescript-1.1.0.js .LiveScript

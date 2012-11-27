@@ -1,6 +1,6 @@
 var replace$ = ''.replace;
 window.world = {};
-window.current = "0&0";
+window.current = "0_0";
 define(function(require, exports){
   var $, tmpl, log, w, h, overviewRatio, viewRatio, createDekstop, desktopN, getLeft, getTop, moveTo, moveLeft, moveRight, moveUp, moveDown, toggleView, toggleOverview;
   $ = require("jquery");
@@ -11,17 +11,21 @@ define(function(require, exports){
   overviewRatio = 1;
   viewRatio = 1;
   createDekstop = function(place, position){
-    var x, y, desktop;
+    var x, y, name, desktop, ref$;
     if (!window.world[place]) {
       x = position.x, y = position.y;
-      desktop = $(tmpl({
-        ".desk": (-x) + "&" + (-y)
-      }));
+      name = x + "_" + y;
+      desktop = $(tmpl((ref$ = {}, ref$[".desk/" + name] = {
+        ".name": name
+      }, ref$)));
       $('#view').append(desktop);
-      return window.world[place] = {
+      window.world[place] = {
         p: position,
         desktop: desktop
       };
+      return $("#" + name).click(function(){
+        return moveTo((-x) + "_" + (-y));
+      });
     }
   };
   desktopN = function(n){
@@ -40,7 +44,7 @@ define(function(require, exports){
         return results$;
       }()).forEach(function(x){
         var place, position;
-        place = x + "&" + y;
+        place = x + "_" + y;
         position = {
           x: x,
           y: y
@@ -72,22 +76,22 @@ define(function(require, exports){
   window.moveLeft = moveLeft = function(){
     var ref$, x, y;
     ref$ = window.world[window.current].p, x = ref$.x, y = ref$.y;
-    return moveTo((x + 1) + "&" + y);
+    return moveTo((x + 1) + "_" + y);
   };
   window.moveRight = moveRight = function(){
     var ref$, x, y;
     ref$ = window.world[window.current].p, x = ref$.x, y = ref$.y;
-    return moveTo((x - 1) + "&" + y);
+    return moveTo((x - 1) + "_" + y);
   };
   window.moveUp = moveUp = function(){
     var ref$, x, y;
     ref$ = window.world[window.current].p, x = ref$.x, y = ref$.y;
-    return moveTo(x + "&" + (y - 1));
+    return moveTo(x + "_" + (y - 1));
   };
   window.moveDown = moveDown = function(){
     var ref$, x, y;
     ref$ = window.world[window.current].p, x = ref$.x, y = ref$.y;
-    return moveTo(x + "&" + (y + 1));
+    return moveTo(x + "_" + (y + 1));
   };
   window.toggleView = toggleView = function(){
     if (!window.atView) {
@@ -138,7 +142,7 @@ define(function(require, exports){
       }
     });
   };
-  window.restart = function(size){
+  window.resizeDesktop = function(size){
     $('#view').html("");
     window.world = {};
     (function(){

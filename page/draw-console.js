@@ -2,6 +2,7 @@ var slice$ = [].slice;
 define(function(require, exports){
   var tmpl, $, log, ls;
   tmpl = require('./tmpl').tmpl;
+  window.tmpl = tmpl;
   window.$ = $ = require('jquery');
   log = require('./tool').log;
   window.ls = ls = require('./livescript-1.1.0.js').LiveScript;
