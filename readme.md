@@ -34,7 +34,10 @@ GNOME3 的高明之处在于桌面的可编程性大大提升了, 你能想到�
 `ctrl q` for view  
 `ctrl m` for overview  
 `ctrl b` for terminal  
-`ctrl arrow` to walkaround  
+`ctrl enter` to run livescript in the terminal 
+`ctrl arrow` to walk around  
+
+And click to switch among desktops.  
 
 ### Video demos
 
@@ -42,7 +45,7 @@ Posted on 土豆 with Chinese introductional words:
 http://www.tudou.com/programs/view/5EWEqEXDkmw/  
 http://www.tudou.com/programs/view/9fr5ovwPeiM/  
 
-### Exposed APIS
+### Exposed APIs
 
 run LiveScript code in the terminal, or JS in Console:
 
