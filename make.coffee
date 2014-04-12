@@ -9,6 +9,11 @@ browserify = require 'browserify'
 {renderer} = require 'cirru-html'
  
 reload = -> station?.reload project
+
+compileCoffee = (name, callback) ->
+  exec "coffee -o js/ -bc coffee/#{name}", ->
+    console.log "done: coffee, compiled coffee/#{name}"
+    do callback
  
 target.folder = ->
   mkdir '-p', 'cirru', 'coffee', 'js', 'build', 'css'
@@ -34,20 +39,16 @@ targetBrowserify = ->
 target.js = ->
   exec 'coffee -o js/ -bc coffee/'
  
-target.coffee = (name, callback) ->
-  exec "coffee -o js/ -bc coffee/#{name}", ->
-    console.log "done: coffee, compiled coffee/#{name}"
-    do callback
- 
 target.compile = ->
   target.cirru()
-  targetBrowserify()
+  exec 'coffee -o js/ -bc coffee/', ->
+    targetBrowserify()
  
 target.watch = ->
   fs.watch 'cirru/', interval, target.cirru
   fs.watch 'coffee/', interval, (type, name) ->
     if type is 'change'
-      target.coffee name, ->
+      compileCoffee name, ->
         do targetBrowserify
  
   station = require 'devtools-reloader-station'
