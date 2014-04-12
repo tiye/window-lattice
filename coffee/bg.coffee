@@ -1,15 +1,31 @@
 
+{at} = require './tween'
+
 exports.bg =
-  init: ->
-
-  setup: (config) ->
+  init: (config) ->
     @img = config.img
-    @screen = config.screen
-    @x = config.x
-    @y = config.y
-    @level = config.level
 
-  update: (config) ->
-    @oldDetail = {}
+  config: (position) ->
+    @position = position
+    @calculate()
 
-  getDetailAt: (percentation) ->
+  calculate: ->
+    @oldDetail = @detail
+    @detail =
+      img:
+        x: 0
+        y: 0
+        w: 0
+        h: 0
+      bg:
+        x: 0
+        y: 0
+        w: 0
+        h: 0
+
+  getDetailAt: (ratio) ->
+    bg: at @oldDetail.bg, @detail.bg, ratio
+    img: at @oldDetail.bg, @detail.bg, ratio
+
+  getDetail: ->
+    @detail

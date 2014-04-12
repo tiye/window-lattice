@@ -72,4 +72,4 @@ exports.lattice =
       @animate()
 
   resize: ->
-    paper.resize()
+    paper.resize @state
