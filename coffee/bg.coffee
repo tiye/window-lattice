@@ -1,5 +1,6 @@
 
 {at} = require './tween'
+{clipWallpaper} = require './algorithm'
 
 exports.bg =
   init: (config) ->
@@ -11,21 +12,13 @@ exports.bg =
 
   calculate: ->
     @oldDetail = @detail
+    console.log @img, @position
+    windou = w: innerWidth, h: innerHeight
     @detail =
-      img:
-        x: 0
-        y: 0
-        w: 0
-        h: 0
-      bg:
-        x: 0
-        y: 0
-        w: 0
-        h: 0
+      img: clipWallpaper @img, @position, windou
 
   getDetailAt: (ratio) ->
-    bg: at @oldDetail.bg, @detail.bg, ratio
-    img: at @oldDetail.bg, @detail.bg, ratio
+    img: at @oldDetail.img, @detail.img, ratio
 
   getDetail: ->
     @detail

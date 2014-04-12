@@ -5,6 +5,7 @@ context = canvas.getContext '2d'
 {Space} = require './spaces'
 {bg} = require './bg'
 {imgs} = require './image'
+{putSpace} = require './algorithm'
 
 exports.paper =
   init: (state) ->
@@ -21,6 +22,7 @@ exports.paper =
 
   addSpaces: ->
     @spaces = []
+    windou = w: innerWidth, h: innerHeight
     for x in [-2..2]
       for y in [-2..2]
         space = new Space
@@ -29,6 +31,7 @@ exports.paper =
           img:
             x: imgs.fg.width
             y: imgs.fg.height
+          clip: putSpace @state, windou
         @spaces.push space
     bg.init
       img:
@@ -60,8 +63,8 @@ exports.paper =
     , @duration
 
   renderFrame: ->
-    @renderSpaces()
     @renderWallpaper()
+    @renderSpaces()
 
   renderSteps: (newState) ->
     startTime = (new Date).valueOf()
@@ -69,8 +72,8 @@ exports.paper =
       return unless @inSteps
       now = (new Date).valueOf()
       ratio = (now - startTime) / 400
-      @renderSpacesAt ratio
       @renderWallpaperAt ratio
+      @renderSpacesAt ratio
       requestAnimationFrame(loopRender)
 
   locate: (location) ->
@@ -87,7 +90,7 @@ exports.paper =
   renderWallpaper: ->
     d = bg.getDetail()
     context.drawImage imgs.bg,
-      d.bg.x, d.bg.y, d.bg.w, d.bg.h,
+      0, 0, innerWidth, innerHeight
       d.img.x, d.img.y, d.img.w, d.img.h,
 
   renderSpacesAt: (ratio) ->
@@ -100,5 +103,5 @@ exports.paper =
   renderWallpaperAt: (ratio) ->
     d = bg.getDetailAt ratio
     context.drawImage imgs.bg,
-      d.bg.x, d.bg.y, d.bg.w, d.bg.h,
+      0, 0, innerWidth, innerHeight,
       d.img.x, d.img.y, d.img.w, d.img.h,

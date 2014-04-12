@@ -1,41 +1,28 @@
 
 {at} = require './tween'
+{clipSpace} = require './algorithm'
 
 exports.Space = class
   constructor: (config) ->
     @img = config.img
     @x = config.x
     @y = config.y
+    @clip = config.clip
 
   config: (position) ->
     @position = position
     @calculate()
 
-  update: (config) ->
-    @old =
-      img: @img
-      x: @x
-      y: @y
-      level: @level
-    @config config
-
   calculate: ->
     @oldDetail = @detail
+    windou = w: innerWidth, h: innerHeight
     @detail =
-      img:
-        x: 0
-        y: 0
-        w: 0
-        h: 0
-      fg:
-        x: 0
-        y: 0
-        w: 0
-        h: 0
+      img: @clip
+      fg: clipSpace @img, @position, windou
 
   getDetailAt: (ratio) ->
     fg: at @oldDetail.fg, @detail.fg, ratio
-    img: at @oldDetail.fg, @detail.fg, ratio
+    img: @clip
 
   getDetail: ->
     @detail
