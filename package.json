@@ -1,0 +1,28 @@
+{
+  "name": "window-lattice",
+  "version": "0.0.1",
+  "description": "design of window manager",
+  "main": "js/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jiyinyiyong/window-lattice.git"
+  },
+  "keywords": [
+    "desktop"
+  ],
+  "author": "jiyinyiyong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jiyinyiyong/window-lattice/issues"
+  },
+  "homepage": "https://github.com/jiyinyiyong/window-lattice",
+  "devDependencies": {
+    "shelljs": "~0.2.6",
+    "cirru-html": "~0.1.7",
+    "devtools-reloader-station": "0.0.4",
+    "browserify": "~3.41.0"
+  }
+}
