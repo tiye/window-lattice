@@ -19,6 +19,8 @@ exports.paper =
     @resize state
 
   resize: (state) ->
+    @reClipSpaces()
+    @configSpaces state
     canvas.setAttribute 'width', innerWidth
     canvas.setAttribute 'height', innerHeight
     @renderFrame state
@@ -44,6 +46,10 @@ exports.paper =
       space.config state
     bg.config state
     hintLayer.config state
+
+  reClipSpaces: ->
+    for space in @spaces
+      space.makeClip()
 
   setState: ->
     @inSteps = no
