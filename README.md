@@ -18,6 +18,8 @@ Keyboard controllers:
 
 Also, clicking works.
 
+Notice that the images are not in the repo, you have to download by hand.
+
 ### the Past and the Future
 
 My blueprints at 2011:  

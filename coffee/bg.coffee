@@ -18,6 +18,7 @@ exports.bg =
       img: clipWallpaper @img, @position, windou
 
   getDetailAt: (ratio) ->
+    # return @detail
     img: at @oldDetail.img, @detail.img, ratio
 
   getDetail: ->

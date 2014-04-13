@@ -7,7 +7,7 @@ loadImage (fg, bg) ->
   lattice.init()
 
 document.body.addEventListener 'keydown', (event) ->
-  event.preventDefault()
+  prevent = yes
   switch event.keyCode
     when keyMap.left then lattice.left()
     when keyMap.right then lattice.right()
@@ -15,6 +15,8 @@ document.body.addEventListener 'keydown', (event) ->
     when keyMap.down then lattice.down()
     when keyMap.esc then lattice.zoomOut()
     when keyMap.enter then lattice.zoomIn()
+    else prevent = no
+  if prevent then event.preventDefault()
 
 canvas = document.querySelector('canvas')
 canvas.addEventListener 'click', (event) ->

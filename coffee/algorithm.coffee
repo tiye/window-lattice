@@ -23,8 +23,42 @@ imgClip = (img, windou) ->
 exports.clipWallpaper = (img, position, windou) ->
   clip = imgClip img, windou
 
-  x: 0, y:0, w:0, h:0
+  # return clip
+  c =
+    x: (clip.x + clip.w) / 2
+    y: (clip.y + clip.h) / 2
 
+  shift =
+    x: position.x
+    y: position.y
+
+  if position.level is 5
+    shift.x = 0
+    shift.y = 0
+  else if position.level is 3
+    if shift.x > 1 then shift.x = 1
+    else if shift.x < - 1 then shift.x = -1
+    if shift.y > 1 then shift.y = 1
+    else if shift.y < - 1 then shift.y = -1
+
+  console.log 'shift:', shift, position
+
+  if position.level is 5
+    ratio = 1
+  else if position.level is 3
+    ratio = 0.4
+  else
+    ratio = 0.2
+
+  u =
+    w: clip.w * ratio
+    h: clip.h * ratio
+
+  x: c.x + (u.w * shift.x * 0.6) - (u.w / 2)
+  y: c.y + (u.h * shift.y * 0.6) - (u.h / 2)
+  w: u.w
+  h: u.h
+    
 exports.clipSpace = (img, position, windou) ->
   clip = imgClip img, windou  
 

@@ -7,9 +7,10 @@ context = canvas.getContext '2d'
 {imgs} = require './image'
 {hintLayer} = require './hint'
 
-hintStyle = '#da4'
-hintOpacity = 0.7
-imgOpacity = 0.9
+hintStyle = '#44f'
+hintOpacity = 0.2
+imgOpacity = 0.5
+wallOpcity = 1
 
 exports.paper =
   init: (state) ->
@@ -81,7 +82,7 @@ exports.paper =
     do loopRender = =>
       return unless @inSteps
       now = (new Date).valueOf()
-      ratio = (now - startTime) / 400
+      ratio = (now - startTime) / @duration
       @renderWallpaperAt ratio
       @renderSpacesAt ratio
       @renderHintAt ratio
@@ -107,6 +108,7 @@ exports.paper =
   renderWallpaper: ->
     d = bg.getDetail()
     context.clearRect 0, 0, innerWidth, innerHeight
+    context.globalAlpha = wallOpcity
     context.drawImage imgs.bg,
       d.img.x, d.img.y, d.img.w, d.img.h,
       0, 0, innerWidth, innerHeight
@@ -130,6 +132,7 @@ exports.paper =
   renderWallpaperAt: (ratio) ->
     d = bg.getDetailAt ratio
     context.clearRect 0, 0, innerWidth, innerHeight
+    context.globalAlpha = wallOpcity
     context.drawImage imgs.bg,
       d.img.x, d.img.y, d.img.w, d.img.h,
       0, 0, innerWidth, innerHeight,
