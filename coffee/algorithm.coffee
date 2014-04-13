@@ -41,19 +41,18 @@ exports.clipSpace = (img, position, windou) ->
   h: u.h * fillRatio
 
 exports.putSpace = (p, state, windou) ->
+  u =
+    w: windou.w / ((2 * paddingRatio) + state.level)
+    h: windou.h / ((2 * paddingRatio) + state.level)
+  c =
+    x: windou.w / 2
+    y: windou.h / 2
   if state.level is 0
     x: windou.w * (p.x - state.x)
     y: windou.h * (p.y - state.y)
     w: windou.w
     h: windou.h
-  else
-    u =
-      w: windou.w / ((2 * paddingRatio) + state.level)
-      h: windou.h / ((2 * paddingRatio) + state.level)
-    c =
-      x: windou.w / 2
-      y: windou.h / 2
-    
+  else if state.level is 1
     x: c.x \
       - u.w * fillRatio / 2 \
       + u.w * (p.x - state.x)
@@ -62,24 +61,69 @@ exports.putSpace = (p, state, windou) ->
       + u.h * (p.y - state.y)
     w: u.w * fillRatio
     h: u.h * fillRatio
+  else if state.level is 3
+    shift =
+      x: state.x
+      y: state.y
+    if shift.x > 1 then shift.x = 1
+    if shift.x < -1 then shift.x = -1
+    if shift.y > 1 then shift.y = 1
+    if shift.y < -1 then shift.y = -1
+    x: c.x \
+      - u.w * fillRatio / 2 \
+      + u.w * (p.x - shift.x)
+    y: c.y \
+      - u.h * fillRatio / 2 \
+      + u.h * (p.y - shift.y)
+    w: u.w * fillRatio
+    h: u.h * fillRatio
+  else if state.level is 5
+    x: c.x \
+      - u.w * fillRatio / 2 \
+      + u.w * p.x
+    y: c.y \
+      - u.h * fillRatio / 2 \
+      + u.h * p.y
+    w: u.w * fillRatio
+    h: u.h * fillRatio
 
 exports.putHint = (state, windou) ->
+  u =
+    w: windou.w / ((2 * paddingRatio) + state.level)
+    h: windou.h / ((2 * paddingRatio) + state.level)
+  c =
+    x: windou.w / 2
+    y: windou.h / 2
   if state.level is 0
     x: 0
     y: 0
     w: windou.w
     h: windou.h
-  else
-    u =
-      w: windou.w / ((2 * paddingRatio) + state.level)
-      h: windou.h / ((2 * paddingRatio) + state.level)
-    c =
-      x: windou.w / 2
-      y: windou.h / 2
-  
-    x: c.x \
-      - u.w / 2
-    y: c.y \
-      - u.h / 2
+  else if state.level is 1
+    x: c.x - (u.w / 2)
+    y: c.y - (u.h / 2)
+    w: u.w
+    h: u.h
+  else if state.level is 3
+    ret = 
+      w: u.w
+      h: u.h
+
+    if -1 <= state.x <= 1
+      ret.x = c.x - (u.w / 2)
+    else if state.x < -1
+      ret.x = c.x - (u.w / 2 ) - u.w
+    else if state.x > 1
+      ret.x = c.x - (u.w / 2 ) + u.w
+    if -1 <= state.y <= 1
+      ret.y = c.y - (u.h / 2)
+    else if state.y < -1
+      ret.y = c.y - (u.h / 2 ) - u.h
+    else if state.y > 1
+      ret.y = c.y - (u.h / 2 ) + u.h
+    ret
+  else if state.level is 5
+    x: c.x - (u.w / 2 ) + (u.w * state.x)
+    y: c.y - (u.h / 2 ) + (u.h * state.y)
     w: u.w
     h: u.h

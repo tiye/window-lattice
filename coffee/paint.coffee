@@ -7,7 +7,7 @@ context = canvas.getContext '2d'
 {imgs} = require './image'
 {hintLayer} = require './hint'
 
-hintStyle = '#fc6'
+hintStyle = '#da4'
 hintOpacity = 0.5
 imgOpacity = 0.9
 
