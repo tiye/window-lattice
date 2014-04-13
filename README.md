@@ -6,6 +6,18 @@ Workspace manager concept design demonstrated.
 
 Images from https://plus.google.com/communities/111586828432229020159
 
+### Demo
+
+Live demo: http://repo.tiye.me/window-lattice/
+
+Keyboard controllers:
+
+* arrows: navigate
+* `enter`: zoom in
+* `esc`: zoom out
+
+Also, clicking works.
+
 ### the Past and the Future
 
 My blueprints at 2011:  
