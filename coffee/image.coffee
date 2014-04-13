@@ -6,7 +6,8 @@ exports.loadImage = (callback) ->
   # bg.src = 'http://jiyinyiyong.u.qiniudn.com/wl-park.jpg'
   # fg.src = 'http://jiyinyiyong.u.qiniudn.com/wl-tea.jpg'
   bg.src = 'jpg/leaves.jpg'
-  fg.src = 'jpg/tea.jpg'
+  # fg.src = 'jpg/tea.jpg'
+  fg.src = 'jpg/sky.svg'
   
   count = 0
   done = ->

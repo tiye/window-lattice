@@ -62,3 +62,24 @@ exports.putSpace = (p, state, windou) ->
       + u.h * (p.y - state.y)
     w: u.w * fillRatio
     h: u.h * fillRatio
+
+exports.putHint = (state, windou) ->
+  if state.level is 0
+    x: 0
+    y: 0
+    w: windou.w
+    h: windou.h
+  else
+    u =
+      w: windou.w / ((2 * paddingRatio) + state.level)
+      h: windou.h / ((2 * paddingRatio) + state.level)
+    c =
+      x: windou.w / 2
+      y: windou.h / 2
+  
+    x: c.x \
+      - u.w / 2
+    y: c.y \
+      - u.h / 2
+    w: u.w
+    h: u.h

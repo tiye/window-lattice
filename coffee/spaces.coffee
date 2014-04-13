@@ -32,11 +32,12 @@ exports.Space = class
       fg: putSpace position, @state, windou
       img: @clip
 
-    # console.log @detail.fg
-
   getDetailAt: (ratio) ->
     fg: at @oldDetail.fg, @detail.fg, ratio
     img: @clip
 
   getDetail: ->
     @detail
+
+  isActive: ->
+    @state.x is @x and @state.y is @y

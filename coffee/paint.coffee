@@ -5,6 +5,11 @@ context = canvas.getContext '2d'
 {Space} = require './spaces'
 {bg} = require './bg'
 {imgs} = require './image'
+{hintLayer} = require './hint'
+
+hintStyle = '#fc6'
+hintOpacity = 0.5
+imgOpacity = 0.9
 
 exports.paper =
   init: (state) ->
@@ -16,7 +21,6 @@ exports.paper =
   resize: (state) ->
     canvas.setAttribute 'width', innerWidth
     canvas.setAttribute 'height', innerHeight
-    console.log 'resize'
     @renderFrame state
 
   addSpaces: (state) ->
@@ -39,6 +43,7 @@ exports.paper =
     for space in @spaces
       space.config state
     bg.config state
+    hintLayer.config state
 
   setState: ->
     @inSteps = no
@@ -51,18 +56,18 @@ exports.paper =
   animate: (state, callback) ->
     @inSteps = yes
     @configSpaces state
-    @renderSteps @oldState
+    @renderSteps state
     self = @
     setTimeout ->
       self.inSteps = no
       callback()
-      self.renderWallpaper()
-      self.renderSpaces()
+      self.renderFrame()
       console.log 'animate end'
     , @duration
 
   renderFrame: ->
     @renderWallpaper()
+    @renderHint()
     @renderSpaces()
 
   renderSteps: (newState) ->
@@ -72,6 +77,7 @@ exports.paper =
       now = (new Date).valueOf()
       ratio = (now - startTime) / 400
       @renderWallpaperAt ratio
+      @renderHintAt ratio
       @renderSpacesAt ratio
       requestAnimationFrame(loopRender)
 
@@ -83,11 +89,10 @@ exports.paper =
   renderSpaces: ->
     for space in @spaces
       d = space.getDetail()
+      context.globalAlpha = imgOpacity
       context.drawImage imgs.fg,
         d.img.x, d.img.y, d.img.w, d.img.h,
         d.fg.x, d.fg.y, d.fg.w, d.fg.h,
-
-      console.log d.fg
 
   renderWallpaper: ->
     d = bg.getDetail()
@@ -96,9 +101,18 @@ exports.paper =
       d.img.x, d.img.y, d.img.w, d.img.h,
       0, 0, innerWidth, innerHeight
 
+  renderHint: ->
+    for space in @spaces
+      if space.isActive()
+        {hint} = hintLayer.getDetail()
+        context.fillStyle = hintStyle
+        context.globalAlpha = hintOpacity
+        context.fillRect hint.x, hint.y, hint.w, hint.h
+
   renderSpacesAt: (ratio) ->
     for space in @spaces
       d = space.getDetailAt ratio
+      context.globalAlpha = imgOpacity
       context.drawImage imgs.fg,
         d.img.x, d.img.y, d.img.w, d.img.h,
         d.fg.x, d.fg.y, d.fg.w, d.fg.h,
@@ -109,3 +123,11 @@ exports.paper =
     context.drawImage imgs.bg,
       d.img.x, d.img.y, d.img.w, d.img.h,
       0, 0, innerWidth, innerHeight,
+
+  renderHintAt: (ratio) ->
+    for space in @spaces
+      if space.isActive()
+        {hint} = hintLayer.getDetailAt ratio
+        context.fillStyle = hintStyle
+        context.globalAlpha = hintOpacity
+        context.fillRect hint.x, hint.y, hint.w, hint.h
