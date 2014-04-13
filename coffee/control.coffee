@@ -57,6 +57,7 @@ exports.lattice =
       @animate()
 
   animate: ->
+    console.clear()
     console.log 'animate state:',
       x: @state.x
       y: @state.y
@@ -74,6 +75,10 @@ exports.lattice =
     if @state.y isnt location.y
       @state.y = location.y
       changed = yes
+    if @state.level isnt location.level
+      @state.level = location.level
+      changed = yes
+
     if changed
       @animate()
 

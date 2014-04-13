@@ -7,6 +7,7 @@ loadImage (fg, bg) ->
   lattice.init()
 
 document.body.addEventListener 'keydown', (event) ->
+  event.preventDefault()
   switch event.keyCode
     when keyMap.left then lattice.left()
     when keyMap.right then lattice.right()

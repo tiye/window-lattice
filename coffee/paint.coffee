@@ -5,24 +5,22 @@ context = canvas.getContext '2d'
 {Space} = require './spaces'
 {bg} = require './bg'
 {imgs} = require './image'
-{putSpace} = require './algorithm'
 
 exports.paper =
   init: (state) ->
     @setState()
-    @addSpaces()
-    @configSpaces()
+    @addSpaces state
+    @configSpaces state
     @resize state
 
   resize: (state) ->
-    canvas.style.width = "#{innerWidth}px"
-    canvas.style.height = "#{innerHeight}px"
+    canvas.setAttribute 'width', innerWidth
+    canvas.setAttribute 'height', innerHeight
     console.log 'resize'
     @renderFrame state
 
-  addSpaces: ->
+  addSpaces: (state) ->
     @spaces = []
-    windou = w: innerWidth, h: innerHeight
     for x in [-2..2]
       for y in [-2..2]
         space = new Space
@@ -31,7 +29,6 @@ exports.paper =
           img:
             w: imgs.fg.width
             h: imgs.fg.height
-          clip: putSpace @state, windou
         @spaces.push space
     bg.init
       img:
@@ -59,6 +56,8 @@ exports.paper =
     setTimeout ->
       self.inSteps = no
       callback()
+      self.renderWallpaper()
+      self.renderSpaces()
       console.log 'animate end'
     , @duration
 
@@ -79,29 +78,34 @@ exports.paper =
   locate: (location) ->
     x: 0
     y: 0
+    level: 1
 
   renderSpaces: ->
     for space in @spaces
       d = space.getDetail()
       context.drawImage imgs.fg,
-        d.fg.x, d.fg.y, d.fg.w, d.fg.h,
         d.img.x, d.img.y, d.img.w, d.img.h,
+        d.fg.x, d.fg.y, d.fg.w, d.fg.h,
+
+      console.log d.fg
 
   renderWallpaper: ->
     d = bg.getDetail()
+    context.clearRect 0, 0, innerWidth, innerHeight
     context.drawImage imgs.bg,
-      0, 0, innerWidth, innerHeight
       d.img.x, d.img.y, d.img.w, d.img.h,
+      0, 0, innerWidth, innerHeight
 
   renderSpacesAt: (ratio) ->
     for space in @spaces
       d = space.getDetailAt ratio
       context.drawImage imgs.fg,
-        d.fg.x, d.fg.y, d.fg.w, d.fg.h,
         d.img.x, d.img.y, d.img.w, d.img.h,
+        d.fg.x, d.fg.y, d.fg.w, d.fg.h,
 
   renderWallpaperAt: (ratio) ->
     d = bg.getDetailAt ratio
+    context.clearRect 0, 0, innerWidth, innerHeight
     context.drawImage imgs.bg,
-      0, 0, innerWidth, innerHeight,
       d.img.x, d.img.y, d.img.w, d.img.h,
+      0, 0, innerWidth, innerHeight,
