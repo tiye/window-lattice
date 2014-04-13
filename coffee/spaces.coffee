@@ -41,3 +41,9 @@ exports.Space = class
 
   isActive: ->
     @state.x is @x and @state.y is @y
+
+  contains: (point) ->
+    fg = @detail.fg
+    inX = fg.x < point.x < (fg.x + fg.w)
+    inY = fg.y < point.y < (fg.y + fg.h)
+    inX and inY

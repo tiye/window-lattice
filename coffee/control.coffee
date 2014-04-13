@@ -68,6 +68,9 @@ exports.lattice =
 
   click: (position) ->
     location = paper.locate position
+    unless location?
+      console.log 'found no space'
+      return
     changed = no
     if @state.x isnt location.x
       @state.x = location.x
@@ -75,11 +78,11 @@ exports.lattice =
     if @state.y isnt location.y
       @state.y = location.y
       changed = yes
-    if @state.level isnt location.level
-      @state.level = location.level
-      changed = yes
 
     if changed
+      @animate()
+    else if @state.level isnt 1
+      @state.level = 1
       @animate()
 
   resize: ->

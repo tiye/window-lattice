@@ -8,7 +8,7 @@ context = canvas.getContext '2d'
 {hintLayer} = require './hint'
 
 hintStyle = '#da4'
-hintOpacity = 0.5
+hintOpacity = 0.7
 imgOpacity = 0.9
 
 exports.paper =
@@ -77,14 +77,18 @@ exports.paper =
       now = (new Date).valueOf()
       ratio = (now - startTime) / 400
       @renderWallpaperAt ratio
-      @renderHintAt ratio
       @renderSpacesAt ratio
+      @renderHintAt ratio
       requestAnimationFrame(loopRender)
 
-  locate: (location) ->
-    x: 0
-    y: 0
-    level: 1
+  locate: (point) ->
+    console.log point
+    for space in @spaces
+      if space.contains point
+        ret =
+          x: space.x
+          y: space.y
+        return ret
 
   renderSpaces: ->
     for space in @spaces
