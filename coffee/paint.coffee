@@ -29,14 +29,14 @@ exports.paper =
           x: x
           y: y
           img:
-            x: imgs.fg.width
-            y: imgs.fg.height
+            w: imgs.fg.width
+            h: imgs.fg.height
           clip: putSpace @state, windou
         @spaces.push space
     bg.init
       img:
-        x: imgs.bg.width
-        y: imgs.bg.height
+        w: imgs.bg.width
+        h: imgs.bg.height
 
   configSpaces: (state) ->
     for space in @spaces

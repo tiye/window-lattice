@@ -43,10 +43,16 @@ exports.lattice =
     if @state.level > 1
       @state.level -= 2
       @animate()
+    else if @state.level is 1
+      @state.level = 0
+      @animate()
 
   zoomOut: ->
     return if @inTransition
-    if @state.level < 5
+    if @state.level is 0
+      @state.level = 1
+      @animate()
+    else if @state.level < 5
       @state.level += 2
       @animate()
 

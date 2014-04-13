@@ -16,9 +16,10 @@ exports.Space = class
   calculate: ->
     @oldDetail = @detail
     windou = w: innerWidth, h: innerHeight
+    position = x: @x, y: @y
     @detail =
       img: @clip
-      fg: clipSpace @img, @position, windou
+      fg: clipSpace @img, position, windou
 
   getDetailAt: (ratio) ->
     fg: at @oldDetail.fg, @detail.fg, ratio
