@@ -1,8 +1,8 @@
 
+bower_components/
 node_modules/
 
 jpg/
-js/
 build/
 
 index.html

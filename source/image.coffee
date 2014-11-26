@@ -9,13 +9,13 @@ exports.loadImage = (callback) ->
   # bg.src = 'jpg/cloud2.svg'
   # fg.src = 'jpg/tea.jpg'
   fg.src = 'jpg/sky.svg'
-  
+
   count = 0
   done = ->
     count += 1
     if count is 2
       callback fg, bg
-    
+
   bg.onload = done
   fg.onload = done
 
