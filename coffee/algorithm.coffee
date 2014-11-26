@@ -25,8 +25,8 @@ exports.clipWallpaper = (img, position, windou) ->
 
   # return clip
   c =
-    x: (clip.x + clip.w) / 2
-    y: (clip.y + clip.h) / 2
+    x: clip.x + (clip.w / 2)
+    y: clip.y + (clip.h / 2)
 
   shift =
     x: position.x
@@ -46,7 +46,7 @@ exports.clipWallpaper = (img, position, windou) ->
   if position.level is 5
     ratio = 1
   else if position.level is 3
-    ratio = 0.4
+    ratio = 1/3
   else
     ratio = 0.2
 
@@ -54,17 +54,17 @@ exports.clipWallpaper = (img, position, windou) ->
     w: clip.w * ratio
     h: clip.h * ratio
 
-  x: c.x + (u.w * shift.x * 0.6) - (u.w / 2)
-  y: c.y + (u.h * shift.y * 0.6) - (u.h / 2)
+  x: c.x - (u.w / 2) + (u.w * shift.x * 0.5 * ratio)
+  y: c.y - (u.h / 2) + (u.h * shift.y * 0.5 * ratio)
   w: u.w
   h: u.h
-    
+
 exports.clipSpace = (img, position, windou) ->
-  clip = imgClip img, windou  
+  clip = imgClip img, windou
 
   c =
-    x: (clip.x + clip.w) / 2
-    y: (clip.y + clip.h) / 2
+    x: clip.x + (clip.w / 2)
+    y: clip.y + (clip.h / 2)
   u =
     w: clip.w / 5
     h: clip.h / 5
@@ -139,7 +139,7 @@ exports.putHint = (state, windou) ->
     w: u.w
     h: u.h
   else if state.level is 3
-    ret = 
+    ret =
       w: u.w
       h: u.h
 
