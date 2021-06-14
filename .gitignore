@@ -1,8 +1,7 @@
 
-bower_components/
+.compact-inc.cirru
+.calcit-error.cirru
+
+js-out/
 node_modules/
-
-jpg/
-build/
-
-index.html
+dist/
