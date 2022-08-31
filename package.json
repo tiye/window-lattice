@@ -8,7 +8,7 @@
   "author": "jiyinyiyong",
   "license": "MIT",
   "devDependencies": {
-    "vite": "^2.3.7"
+    "vite": "^2.9.13"
   },
   "description": "A chat app",
   "dependencies": {},
